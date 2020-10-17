@@ -1,41 +1,41 @@
 {
     "groups": [
         { 
-            "id": "A", 
+            "id": "Ai", 
             "name": "Air", 
             "items": [
                 { 
-                    "id": "A1", 
+                    "id": "Ai1", 
                     "name": "Air"      
                 }
             ] 
         },
         { 
-            "id": "E", 
+            "id": "Ea", 
             "name": "Earth", 
             "items": [
                 { 
-                    "id": "E1", 
+                    "id": "Ea1", 
                     "name": "Earth"
                 }
             ] 
         },
         { 
-            "id": "F", 
+            "id": "Fi", 
             "name": "Fire",
              "items": [
                 {
-                    "id": "F1",
+                    "id": "Fi1",
                     "name": "Fire"
                 }
             ] 
         },
         { 
-            "id": "W", 
+            "id": "Wa", 
             "name": "Water", 
             "items": [
                 { 
-                    "id": "W1", 
+                    "id": "Wa1", 
                     "name": "Water"
                 }
             ] 

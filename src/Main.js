@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import { addGroup } from "./actions/index";
+import { addElement, addGroup } from "./actions/index";
 import { Col, Container, Row } from "react-bootstrap";
-// import ListElements from "./Componenets/ListElements";
+import ListElements from "./Componenets/ListElements";
 import TopBar from "./Componenets/Nav";
 import AddGroup from "./Componenets/AddGroup";
+import AddItem from "./Componenets/AddItem";
 
 export default function Main(props) {
   const [groups, setGroups] = useState(props.store.getState().group);
+  const [items, setItems] = useState(props.store.getState().element);
 
-  const handleSubmit = (name) => {
+  const handleSubmitNewGroup = (name) => {
     props.store.dispatch(addGroup(name));
+  };
+  const handleSubmitNewItem = (obj) => {
+    console.log(obj);
+    props.store.dispatch(addElement(obj));
   };
 
   console.log(groups);
+  console.log(items);
 
   return (
     <div>
@@ -25,7 +32,7 @@ export default function Main(props) {
         <Row>
           <Col>
             <h2>Elements</h2>
-            {/* <ListElements groups={props.data.groups} /> */}
+            <ListElements groups={groups} items={items} />
           </Col>
           <Col>{/* <ListPossibilities /> */}</Col>
         </Row>
@@ -35,11 +42,20 @@ export default function Main(props) {
             <AddGroup
               store={props.store}
               handleSubmit={(e) => {
-                handleSubmit(e);
+                handleSubmitNewGroup(e);
               }}
             />
           </Col>
-          <Col></Col>
+          <Col>
+            <h2>Add Items</h2>
+            <AddItem
+              items={items}
+              groups={groups}
+              handleSubmit={(e) => {
+                handleSubmitNewItem(e);
+              }}
+            />
+          </Col>
         </Row>
       </Container>
     </div>

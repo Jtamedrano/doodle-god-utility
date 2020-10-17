@@ -1,16 +1,33 @@
-let lastElement = 0;
-const elementReducer = (state = [], action) => {
+import data from "../data/sampleGameData.json";
+
+class Element {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+const createNewElement = (id, name) => {
+  let element = new Element(id, name);
+  return element;
+};
+
+const stateArr = [];
+
+for (let g in data.groups) {
+  for (let i in data.groups[g].items) {
+    stateArr.push(
+      createNewElement(data.groups[g].items[i].id, data.groups[g].items[i].name)
+    );
+  }
+}
+
+const elementReducer = (state = stateArr, action) => {
   switch (action.type) {
     case "addedElement":
-      lastElement++;
-      return [
-        ...state,
-        {
-          id: lastElement,
-          name: action.payload,
-          edit: false,
-        },
-      ];
+      console.log(action.payload);
+      state.push(createNewElement(action.payload.id, action.payload.name));
+      return state;
     case "deletedElement":
       return [...state.filter((_, i) => i !== action.payload)];
     case "enableEdit":
