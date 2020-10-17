@@ -29,3 +29,11 @@ export const editedElement = (index, element) => {
     },
   };
 };
+export const addGroup = (name) => {
+  return {
+    type: "ADD_GROUP",
+    payload: {
+      name: name,
+    },
+  };
+};
