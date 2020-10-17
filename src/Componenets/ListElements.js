@@ -33,19 +33,10 @@ class ElementGroup extends Component {
 }
 
 export default class ListElements extends Component {
-  state = {
-    groups: [
-      { id: "1", name: "Air", items: [{ id: "A1", name: "Air" }] },
-      { id: "2", name: "Earth", items: [{ id: "E1", name: "Earth" }] },
-      { id: "3", name: "Fire", items: [{ id: "F1", name: "Fire" }] },
-      { id: "4", name: "Water", items: [{ id: "W1", name: "Water" }] },
-    ],
-  };
-
   render() {
     return (
       <Accordion>
-        {this.state.groups.map((e, i) => {
+        {this.props.groups.map((e, i) => {
           return <ElementGroup key={i} content={e} />;
         })}
       </Accordion>
