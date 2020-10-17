@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { addElement, addGroup } from "./actions/index";
 import { Col, Container, Row } from "react-bootstrap";
 import ListElements from "./Componenets/ListElements";
+import ListPossibilites from "./Componenets/ListPossibilites";
 import TopBar from "./Componenets/Nav";
 import AddGroup from "./Componenets/AddGroup";
 import AddItem from "./Componenets/AddItem";
@@ -34,7 +35,10 @@ export default function Main(props) {
             <h2>Elements</h2>
             <ListElements groups={groups} items={items} />
           </Col>
-          <Col>{/* <ListPossibilities /> */}</Col>
+          <Col>
+            <h2>Possibilites</h2>
+            <ListPossibilites groups={groups} items={items} />
+          </Col>
         </Row>
         <Row>
           <Col>
