@@ -1,7 +1,5 @@
-import data from "../data/sampleGameData.json";
-
 let lastElement = 0;
-const elementReducer = (state = data, action) => {
+const elementReducer = (state = [], action) => {
   switch (action.type) {
     case "addedElement":
       lastElement++;
