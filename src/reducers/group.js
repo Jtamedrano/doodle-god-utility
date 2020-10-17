@@ -4,27 +4,25 @@ class Group {
   constructor(name) {
     this.id = name.substr(0, 2);
     this.name = name;
-    this.items = [];
   }
 }
+
+let createNewGroup = (obj) => {
+  let group = new Group(obj);
+  return group;
+};
 
 const groupReducer = (
   state = data.groups.map((e) => {
     let group = new Group(e.name);
-    group.items = e.items;
     return group;
   }),
   action
 ) => {
   switch (action.type) {
-    case "ADD_GROUP":
-      let createNewGroup = (obj) => {
-        console.log(obj);
-        let group = new Group(obj);
-        return group;
-      };
-      console.log("push to state");
+    case "addedGroup":
       return state.push(createNewGroup(action.payload.name));
+
     default:
       return state;
   }

@@ -15,14 +15,14 @@ class ElementGroup extends Component {
           <Accordion.Toggle
             as={Button}
             variant="link"
-            eventKey={this.props.content.id}
+            eventKey={this.props.group.id}
           >
-            {this.props.content.name}
+            {this.props.group.name}
           </Accordion.Toggle>
         </Card.Header>
-        <Accordion.Collapse eventKey={this.props.content.id}>
+        <Accordion.Collapse eventKey={this.props.group.id}>
           <Card.Body>
-            {this.props.content.items.map((e) => {
+            {this.props.content.map((e) => {
               return <Element key={e.id} name={e.name} />;
             })}
           </Card.Body>
@@ -37,7 +37,15 @@ export default class ListElements extends Component {
     return (
       <Accordion>
         {this.props.groups.map((e, i) => {
-          return <ElementGroup key={i} content={e} />;
+          return (
+            <ElementGroup
+              key={i}
+              group={e}
+              content={this.props.items.filter((element) => {
+                return element.id.includes(e.id);
+              })}
+            />
+          );
         })}
       </Accordion>
     );

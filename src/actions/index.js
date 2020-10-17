@@ -1,7 +1,10 @@
-export const addElement = (element) => {
+export const addElement = (obj) => {
   return {
     type: "addedElement",
-    payload: element,
+    payload: {
+      id: obj.id,
+      name: obj.name,
+    },
   };
 };
 export const deletedElement = (index) => {
@@ -31,7 +34,7 @@ export const editedElement = (index, element) => {
 };
 export const addGroup = (name) => {
   return {
-    type: "ADD_GROUP",
+    type: "addedGroup",
     payload: {
       name: name,
     },
