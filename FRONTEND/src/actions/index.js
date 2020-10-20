@@ -40,3 +40,12 @@ export const addGroup = (name) => {
     },
   };
 };
+export const addOutcome = (itemOne, itemTwo) => {
+  return {
+    type: "ADD_OUTCOME",
+    payload: {
+      string: `${itemOne} - ${itemTwo}`,
+      revSting: `${itemTwo} - ${itemOne}`,
+    },
+  };
+};

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Accordion, Button, Card } from "react-bootstrap";
-
-class Element extends Component {
-  render() {
-    return <div>{this.props.name}</div>;
-  }
-}
+import {
+  Accordion,
+  Button,
+  Card,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
+import Element from "./Items/Element";
 
 class ElementGroup extends Component {
   render() {
@@ -22,9 +23,15 @@ class ElementGroup extends Component {
         </Card.Header>
         <Accordion.Collapse eventKey={this.props.group.id}>
           <Card.Body>
-            {this.props.content.map((e) => {
-              return <Element key={e.id} name={e.name} />;
-            })}
+            <ListGroup>
+              {this.props.content.map((e) => {
+                return (
+                  <ListGroupItem key={e.id}>
+                    <Element name={e.name} />
+                  </ListGroupItem>
+                );
+              })}
+            </ListGroup>
           </Card.Body>
         </Accordion.Collapse>
       </Card>
