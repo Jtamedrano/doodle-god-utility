@@ -1,0 +1,15 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.navElements {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navElement-2 {
+  margin-left: 1em;
+}

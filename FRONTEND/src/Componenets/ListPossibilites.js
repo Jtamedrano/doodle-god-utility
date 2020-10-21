@@ -1,24 +1,30 @@
 import React from "react";
 import { ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import Element from "./Items/Element";
+import shortid from "shortid";
+import { addOutcome } from "../actions/index";
 
 export default function ListPossibilites(props) {
-  let possibilityList = props.outcomes;
-  console.log("This is the possiblity list", possibilityList);
+  let possibilityList = props.outcomes.possibilities;
+
+  function handleClick(a, b) {
+    props.store.dispatch(addOutcome(a, b));
+  }
   return (
     <div>
       <ListGroup>
         {possibilityList
           .filter((_, i) => i < 4)
-          .map((elements) => {
-            let options = elements.split("-");
-            let itemOne = props.items.find((e) => e.id === options[0]);
-            let itemTwo = props.items.find((e) => e.id === options[1]);
+          .map((e) => {
             return (
-              <ListGroupItem>
-                <Button>
-                  <Element name={itemOne.name} />-
-                  <Element name={itemTwo.name} />
+              <ListGroupItem key={shortid.generate()}>
+                <Button
+                  onClick={() => {
+                    handleClick("itemOne.id", "itemTwo.id");
+                  }}
+                >
+                  <Element name={"ItemOne"} />-
+                  <Element name={"ItemTwo"} />
                 </Button>
               </ListGroupItem>
             );

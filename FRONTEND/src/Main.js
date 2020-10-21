@@ -1,74 +1,62 @@
-import React, { useState } from "react";
-import { addElement, addGroup, addOutcome } from "./actions/index";
-import { Col, Container, Row } from "react-bootstrap";
-import ListElements from "./Componenets/ListElements";
-import ListPossibilites from "./Componenets/ListPossibilites";
-import TopBar from "./Componenets/Nav";
-import AddGroup from "./Componenets/AddGroup";
-import AddItem from "./Componenets/AddItem";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavView from "./Componenets/Views/NavView";
+import Home from "./Componenets/Views/Home";
+import Login from "./Componenets/auth/Login";
+import Register from "./Componenets/auth/Register";
+import UserContext from "./context/userContext";
+import Axios from "axios";
 
-export default function Main(props) {
-  const [groups, setGroups] = useState(props.store.getState().group);
-  const [items, setItems] = useState(props.store.getState().element);
-  const [outcomes, setOutcomes] = useState(props.store.getState().outcome);
+import "./style.css";
+import { Container } from "react-bootstrap";
 
-  const handleSubmitNewGroup = (name) => {
-    props.store.dispatch(addGroup(name));
-  };
-  const handleSubmitNewItem = (obj) => {
-    console.log(obj);
-    props.store.dispatch(addElement(obj));
-    props.store.dispatch();
-  };
+export default function Main() {
+  const [userData, setUserData] = useState({
+    token: undefined,
+    user: undefined,
+  });
 
-  console.log(groups);
-  console.log(items);
-  console.log(outcomes);
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      // Creates token field in local storage
+      let token = localStorage.getItem("auth-token");
+      if (token === null) {
+        localStorage.setItem("auth-token", "");
+        token = "";
+      }
+      const tokenRes = await Axios.post(
+        "http://localhost:5000/user/tokenIsValid",
+        null,
+        { headers: { "x-auth-token": token } }
+      );
+      if (tokenRes.data) {
+        const userRes = await Axios.get("http://localhost:5000/user/", {
+          headers: { "x-auth-token": token },
+        });
+        setUserData({
+          token,
+          user: userRes.data,
+        });
+      }
+      console.log(tokenRes.data);
+    };
 
+    checkLoggedIn();
+  }, []);
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col>
-            <TopBar />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <h2>Elements</h2>
-            <ListElements groups={groups} items={items} />
-          </Col>
-          <Col>
-            <h2>Possibilites</h2>
-            <ListPossibilites
-              groups={groups}
-              items={items}
-              outcomes={outcomes}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <h2>Add Group</h2>
-            <AddGroup
-              store={props.store}
-              handleSubmit={(e) => {
-                handleSubmitNewGroup(e);
-              }}
-            />
-          </Col>
-          <Col>
-            <h2>Add Items</h2>
-            <AddItem
-              items={items}
-              groups={groups}
-              handleSubmit={(e) => {
-                handleSubmitNewItem(e);
-              }}
-            />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    <>
+      <Router>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <NavView />
+          <Container>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+            </Switch>
+          </Container>
+        </UserContext.Provider>
+      </Router>
+    </>
   );
 }
