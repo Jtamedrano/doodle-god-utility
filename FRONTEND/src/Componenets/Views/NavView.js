@@ -13,7 +13,7 @@ export default class NavView extends Component {
               <h1>Doodle God Utility</h1>
             </NavbarBrand>
           </NavLink>
-          <Nav>
+          <Nav className="ml-auto">
             <AuthOptions />
           </Nav>
         </Navbar>

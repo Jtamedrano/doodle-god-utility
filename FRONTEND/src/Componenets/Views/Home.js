@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserDashboard from "./UserDashboard";
+import UserContext from "../../context/userContext";
 
-export default function Home() {
+function NoAuthPage() {
   return (
     <>
       <img
@@ -30,6 +32,20 @@ export default function Home() {
         Download the Game for free on iOS or Android and Register Now to save
         your progress
       </h4>
+    </>
+  );
+}
+
+export default function Home() {
+  const { userData } = useContext(UserContext);
+  console.log(userData.user);
+  return (
+    <>
+      {userData.user ? (
+        <UserDashboard data={userData.user.gameData} />
+      ) : (
+        <NoAuthPage />
+      )}
     </>
   );
 }

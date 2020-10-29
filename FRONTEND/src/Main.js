@@ -38,11 +38,11 @@ export default function Main() {
           user: userRes.data,
         });
       }
-      console.log(tokenRes.data);
     };
 
     checkLoggedIn();
   }, []);
+
   return (
     <>
       <Router>

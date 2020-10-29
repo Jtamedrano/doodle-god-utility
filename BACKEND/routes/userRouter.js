@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+const { json } = require("express");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const User = require("../models/userModel");
@@ -7,8 +8,9 @@ const User = require("../models/userModel");
 router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user);
   res.json({
-    displayName: user.displayName,
     id: user._id,
+    displayName: user.displayName,
+    gameData: user.gameData,
   });
 });
 
@@ -42,6 +44,9 @@ router.post("/register", async (req, res) => {
       email,
       password: passwordHash,
       displayName,
+      gameData: {
+        Levels: [],
+      },
     });
 
     const savedUser = await newUser.save();
@@ -76,11 +81,31 @@ router.post("/login", async (req, res) => {
       token,
       user: {
         id: user._id,
-        display: user.displayName,
+        displayName: user.displayName,
+        gameData: user.gameData,
       },
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
+    console.log(error.message);
+  }
+});
+
+// add a level to the user
+router.post("/addLevel", async (req, res) => {
+  try {
+    const { userID, name, items } = req.body;
+    let user = await User.findById(userID);
+    let levels = {
+      levels: [...user.gameData.levels, { name, items, outcomes: [] }].filter(
+        (e) => e !== null
+      ),
+    };
+    user = await User.findOneAndUpdate(userID, { gameData: levels });
+    return res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    console.log(error.message);
   }
 });
 
