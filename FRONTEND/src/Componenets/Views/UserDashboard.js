@@ -7,6 +7,7 @@ import "./UserDashboard.css";
 import ListElements from "./UserDashboard/ListElements";
 import AddLevel from "../crudGame/create/AddLevel";
 import ListPossibilities from "./UserDashboard/ListPossibilities";
+import { Col, Container, Row } from "react-bootstrap";
 
 export default class UserDashboard extends Component {
   id = this.props.data.levels[0]._id;
@@ -65,12 +66,20 @@ export default class UserDashboard extends Component {
                   levels={this.state.levels}
                   chooseLevel={(e) => this.chooseLevel(e)}
                 />
-                <ListElements
-                  className="DashBody-ElementList"
-                  groups={this.state.groups}
-                  items={this.state.items}
-                />
-                <ListPossibilities items={this.state.items} />
+                <Container>
+                  <Row>
+                    <Col>
+                      <ListElements
+                        className="DashBody-ElementList"
+                        groups={this.state.groups}
+                        items={this.state.items}
+                      />
+                    </Col>
+                    <Col>
+                      <ListPossibilities items={this.state.items} />
+                    </Col>
+                  </Row>
+                </Container>
               </>
             ) : (
               <>
