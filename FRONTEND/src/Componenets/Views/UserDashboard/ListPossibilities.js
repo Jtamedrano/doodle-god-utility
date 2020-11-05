@@ -16,6 +16,9 @@ export default function ListPossibilities(props) {
   function findItem(e, index) {
     return props.items.find((element) => element.id === e[index]);
   }
+  function handleClick(event) {
+    console.log(event.target.value);
+  }
 
   return (
     <div>
@@ -28,9 +31,9 @@ export default function ListPossibilities(props) {
             key={shortid.generate()}
             className="mr-2 mt-2"
             value={`${elementOne.id}-${elementTwo.id}`}
+            onClick={(e) => handleClick(e)}
           >
-            <Element name={elementOne.name} /> -{" "}
-            <Element name={elementTwo.name} />
+            {elementOne.name} - {elementTwo.name}
           </Button>
         );
       })}
