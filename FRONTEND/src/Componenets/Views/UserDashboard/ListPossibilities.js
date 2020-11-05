@@ -17,7 +17,7 @@ export default function ListPossibilities(props) {
     return props.items.find((element) => element.id === e[index]);
   }
   function handleClick(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
 
   return (
