@@ -6,6 +6,7 @@ import Stats from "./UserDashboard/Stats";
 import "./UserDashboard.css";
 import ListElements from "./UserDashboard/ListElements";
 import AddLevel from "../crudGame/create/AddLevel";
+import ListPossibilities from "./UserDashboard/ListPossibilities";
 
 export default class UserDashboard extends Component {
   id = this.props.data.levels[0]._id;
@@ -69,6 +70,7 @@ export default class UserDashboard extends Component {
                   groups={this.state.groups}
                   items={this.state.items}
                 />
+                <ListPossibilities items={this.state.items} />
               </>
             ) : (
               <>
