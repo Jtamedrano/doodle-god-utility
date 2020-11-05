@@ -52,9 +52,9 @@ export default class ListElements extends Component {
                 <ElementGroup
                   key={i}
                   group={e}
-                  // content={this.props.items.filter((element) => {
-                  //   return element.id.includes(e.id);
-                  // })}
+                  content={this.props.items.filter((element) => {
+                    return element.groupId === e.groupId;
+                  })}
                 />
               );
             })
