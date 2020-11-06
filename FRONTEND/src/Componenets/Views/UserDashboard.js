@@ -20,6 +20,7 @@ export default class UserDashboard extends Component {
     groups: this.updateGroup(this.id),
     items: this.updateItems(this.id),
   };
+
   updateGroup(id) {
     let arr = [];
     this.props.data.levels
@@ -31,6 +32,7 @@ export default class UserDashboard extends Component {
       });
     return arr;
   }
+
   updateItems(id) {
     let arr = [];
     this.props.data.levels
@@ -49,6 +51,12 @@ export default class UserDashboard extends Component {
       groups: this.updateGroup(e),
     });
   }
+
+  handlePossBtnClick(event) {
+    console.log(event.target.value);
+    this.props.outcomeClick({ event: event, levelId: this.state.currentLevel });
+  }
+
   render() {
     console.log(this.props.data.levels);
     console.log(this.state);
@@ -76,7 +84,10 @@ export default class UserDashboard extends Component {
                       />
                     </Col>
                     <Col>
-                      <ListPossibilities items={this.state.items} />
+                      <ListPossibilities
+                        items={this.state.items}
+                        btnClick={(e) => this.handlePossBtnClick(e)}
+                      />
                     </Col>
                   </Row>
                 </Container>

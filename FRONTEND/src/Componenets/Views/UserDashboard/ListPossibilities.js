@@ -18,6 +18,7 @@ export default function ListPossibilities(props) {
   }
   function handleClick(event) {
     // console.log(event.target.value);
+    props.btnClick(event);
   }
 
   return (

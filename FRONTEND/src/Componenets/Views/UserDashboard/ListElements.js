@@ -45,21 +45,24 @@ class ElementGroup extends Component {
 export default class ListElements extends Component {
   render() {
     return (
-      <Accordion>
-        {this.props.groups
-          ? this.props.groups.map((e, i) => {
-              return (
-                <ElementGroup
-                  key={i}
-                  group={e}
-                  content={this.props.items.filter((element) => {
-                    return element.groupId === e.groupId;
-                  })}
-                />
-              );
-            })
-          : null}
-      </Accordion>
+      <>
+        <h2>Elements</h2>
+        <Accordion>
+          {this.props.groups
+            ? this.props.groups.map((e, i) => {
+                return (
+                  <ElementGroup
+                    key={i}
+                    group={e}
+                    content={this.props.items.filter((element) => {
+                      return element.groupId === e.groupId;
+                    })}
+                  />
+                );
+              })
+            : null}
+        </Accordion>
+      </>
     );
   }
 }
