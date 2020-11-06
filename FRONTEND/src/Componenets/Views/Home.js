@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { Component, useContext, useState } from "react";
 import UserDashboard from "./UserDashboard";
 import UserContext from "../../context/userContext";
+import { Button, Modal } from "react-bootstrap";
+import AddItem from "../crudGame/create/AddItem";
 
 function NoAuthPage() {
   return (
@@ -39,10 +41,44 @@ function NoAuthPage() {
 export default function Home() {
   const { userData } = useContext(UserContext);
   console.log(userData.user);
+
+  const [showModal, setShowModal] = useState(false);
+  const [outcomeSelected, setOutcomeSelected] = useState("");
+  const [currentLevel, setCurrentLevel] = useState("");
+
+  const outcomeClick = (props) => {
+    setCurrentLevel(props.levelId);
+    setOutcomeSelected(props.event.target.value);
+    setShowModal(true);
+  };
+
+  const outcomeClose = () => setShowModal(false);
+
+  console.log("The outcome selected is ", outcomeSelected);
+
   return (
     <>
+      <Modal show={showModal} onHide={outcomeClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Outcome</Modal.Title>
+        </Modal.Header>
+        <Modal.Body></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={outcomeClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={outcomeClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {userData.user ? (
-        <UserDashboard data={userData.user.gameData} />
+        <>
+          <UserDashboard
+            data={userData.user.gameData}
+            outcomeClick={(e) => outcomeClick(e)}
+          />
+        </>
       ) : (
         <NoAuthPage />
       )}
